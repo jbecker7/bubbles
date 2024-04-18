@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bale/bale.iml" filepath="$PROJECT_DIR$/bale/bale.iml" />
+      <module fileurl="file://$PROJECT_DIR$/banal/banal.iml" filepath="$PROJECT_DIR$/banal/banal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bandaid/bandaid.iml" filepath="$PROJECT_DIR$/bandaid/bandaid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bass/bass.iml" filepath="$PROJECT_DIR$/bass/bass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/batt/batt.iml" filepath="$PROJECT_DIR$/batt/batt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bbook/bbook.iml" filepath="$PROJECT_DIR$/bbook/bbook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bcon/bcon.iml" filepath="$PROJECT_DIR$/bcon/bcon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bddt/bddt.iml" filepath="$PROJECT_DIR$/bddt/bddt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bdoc/bdoc.iml" filepath="$PROJECT_DIR$/bdoc/bdoc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bdyn/bdyn.iml" filepath="$PROJECT_DIR$/bdyn/bdyn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/beam/beam.iml" filepath="$PROJECT_DIR$/beam/beam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bedrock/bedrock.iml" filepath="$PROJECT_DIR$/bedrock/bedrock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bedu/bedu.iml" filepath="$PROJECT_DIR$/bedu/bedu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bema/bema.iml" filepath="$PROJECT_DIR$/bema/bema.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bfix/bfix.iml" filepath="$PROJECT_DIR$/bfix/bfix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bgta/bgta.iml" filepath="$PROJECT_DIR$/bgta/bgta.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bhelp/bhelp.iml" filepath="$PROJECT_DIR$/bhelp/bhelp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bmvn/bmvn.iml" filepath="$PROJECT_DIR$/bmvn/bmvn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bnote/bnote.iml" filepath="$PROJECT_DIR$/bnote/bnote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/board/board.iml" filepath="$PROJECT_DIR$/board/board.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bopp/bopp.iml" filepath="$PROJECT_DIR$/bopp/bopp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bowi/bowi.iml" filepath="$PROJECT_DIR$/bowi/bowi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bpare/bpare.iml" filepath="$PROJECT_DIR$/bpare/bpare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bqst/bqst.iml" filepath="$PROJECT_DIR$/bqst/bqst.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bted/bted.iml" filepath="$PROJECT_DIR$/bted/bted.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bubbles.iml" filepath="$PROJECT_DIR$/bubbles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bucs/bucs.iml" filepath="$PROJECT_DIR$/bucs/bucs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buda/buda.iml" filepath="$PROJECT_DIR$/buda/buda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bueno/bueno.iml" filepath="$PROJECT_DIR$/bueno/bueno.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bump/bump.iml" filepath="$PROJECT_DIR$/bump/bump.iml" />
+      <module fileurl="file://$PROJECT_DIR$/burp/burp.iml" filepath="$PROJECT_DIR$/burp/burp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/buss/buss.iml" filepath="$PROJECT_DIR$/buss/buss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bvcr/bvcr.iml" filepath="$PROJECT_DIR$/bvcr/bvcr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bvfm/bvfm.iml" filepath="$PROJECT_DIR$/bvfm/bvfm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bwiz/bwiz.iml" filepath="$PROJECT_DIR$/bwiz/bwiz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nobase/nobase.iml" filepath="$PROJECT_DIR$/nobase/nobase.iml" />
+    </modules>
+  </component>
+</project>

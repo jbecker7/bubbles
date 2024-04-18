@@ -1,0 +1,46 @@
+<component name="libraryTable">
+  <library name="eclipsejar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.osgi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.filesystem.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.equinox.registry.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jface.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.equinox.common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.net.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/com.google.javascript.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.contenttype.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.swt.gtk.linux.x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jdt.core.manipulation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.debug.ui.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jdt.debug.jdi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.resources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.equinox.app.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.text.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.search.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jdt.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jdt.debug.jdimodel.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.python.pydev.core.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.runtime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.jobs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.ui.workbench.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jface.text.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.osgi.services.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.swt.cocoa.macosx.x86_64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.debug.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.ltk.core.refactoring.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/com.google.guava.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.commands.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.jdt.ui.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.python.pydev.parser.parser.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.equinox.preferences.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.core.filebuffers.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.wst.jsdt.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.ui.ide.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.wst.jsdt.debug.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/eclipsejar/org.eclipse.osgi.util.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

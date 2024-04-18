@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="board">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/javasrc/edu/brown/cs/bubbles/board/updater.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javasrc/edu/brown/cs/bubbles/board/desktopdemocode.zip!/" />
+      <root url="jar://$PROJECT_DIR$/javasrc/edu/brown/cs/bubbles/board/board.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

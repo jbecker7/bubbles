@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="edu.brown.cs.bubbles.bema" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="mint" level="project" />
+    <orderEntry type="library" name="jcomp" level="project" />
+    <orderEntry type="library" name="androidjar" level="project" />
+    <orderEntry type="library" name="bubbles" level="project" />
+    <orderEntry type="library" name="src2" level="project" />
+    <orderEntry type="library" name="jcomp1" level="project" />
+    <orderEntry type="library" name="bedrock1" level="project" />
+    <orderEntry type="library" name="bubbles3" level="project" />
+    <orderEntry type="library" name="bubbles2" level="project" />
+    <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="board" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="src" level="project" />
+    <orderEntry type="library" name="bedrock" level="project" />
+    <orderEntry type="library" name="bubbles1" level="project" />
+    <orderEntry type="library" name="bin.java" level="project" />
+    <orderEntry type="module" module-name="bass" />
+    <orderEntry type="module" module-name="xml" />
+    <orderEntry type="module" module-name="bdoc" />
+    <orderEntry type="module" module-name="bump" />
+    <orderEntry type="module" module-name="bale" />
+    <orderEntry type="module" module-name="exec" />
+    <orderEntry type="module" module-name="bubbles" />
+    <orderEntry type="module" module-name="swing" />
+    <orderEntry type="module" module-name="buda" />
+    <orderEntry type="module" module-name="board" />
+    <orderEntry type="module" module-name="bueno" />
+    <orderEntry type="module" module-name="bedu" />
+    <orderEntry type="module" module-name="file" />
+    <orderEntry type="module" module-name="ivy" />
+  </component>
+</module>

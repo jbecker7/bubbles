@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="edu.brown.cs.bubbles.bedrock" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="mint" level="project" />
+    <orderEntry type="library" name="jcomp" level="project" />
+    <orderEntry type="library" name="androidjar" level="project" />
+    <orderEntry type="library" name="eclipsejar1" level="project" />
+    <orderEntry type="library" name="bubbles" level="project" />
+    <orderEntry type="library" name="src2" level="project" />
+    <orderEntry type="library" name="jcomp1" level="project" />
+    <orderEntry type="library" name="bedrock1" level="project" />
+    <orderEntry type="library" name="bubbles3" level="project" />
+    <orderEntry type="library" name="bubbles2" level="project" />
+    <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="board" level="project" />
+    <orderEntry type="library" name="eclipsejar" level="project" />
+    <orderEntry type="library" name="src" level="project" />
+    <orderEntry type="library" name="bedrock" level="project" />
+    <orderEntry type="library" name="bubbles1" level="project" />
+    <orderEntry type="library" name="bin.java" level="project" />
+    <orderEntry type="module" module-name="xml" />
+    <orderEntry type="module" module-name="limbo" />
+    <orderEntry type="module" module-name="exec" />
+    <orderEntry type="module" module-name="jcomp" />
+    <orderEntry type="module" module-name="mint" />
+    <orderEntry type="module" module-name="file" />
+    <orderEntry type="module" module-name="ivy" />
+  </component>
+</module>

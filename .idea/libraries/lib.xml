@@ -1,0 +1,44 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/asm9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cocker.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/postgresql.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsocks-klea.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/derbyclient.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ColorPicker.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-compress.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bandaidasm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/websocket.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cofoja.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/joscar-protocol.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/js-scriptengine.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/joscar-client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jarjar.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/smackx-debug.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/derbynet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/joscar-common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jtar-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gnujpdf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asm6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/smack.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/junit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsoup.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/derby.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/smackx-jingle.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/apidoc.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/smackx.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsyntaxpane.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bubblesasm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/updater.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
