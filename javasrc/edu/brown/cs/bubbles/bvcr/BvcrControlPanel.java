@@ -50,8 +50,13 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
+import javax.swing.JDialog;
 
 import java.awt.Component;
+import java.awt.Frame;
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -61,6 +66,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import java.net.URL;
 
 class BvcrControlPanel implements BvcrConstants, MintConstants {
 
@@ -776,11 +783,32 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
 
       @Override
       public void actionPerformed(ActionEvent evt) {
-         // Print to the console
-         System.out.println("button clicked");
+         showWebPageDialog();
+      }
 
-         // Display a popup dialog
-         JOptionPane.showMessageDialog(null, "Clicked", "Information", JOptionPane.INFORMATION_MESSAGE);
+      private void showWebPageDialog() {
+         try {
+            // Create a dialog
+            JDialog dialog = new JDialog((Frame) null, "Web Page", true);
+            dialog.setSize(800, 600);
+            dialog.setLocationRelativeTo(null);
+
+            // Create a JEditorPane
+            JEditorPane webPane = new JEditorPane();
+            webPane.setPage(new URL("https://www.york.ac.uk/teaching/cws/wws/webpage1.html"));
+            webPane.setEditable(false);
+            webPane.setContentType("text/html");
+
+            // Put it in a scroll pane
+            JScrollPane scrollPane = new JScrollPane(webPane);
+            dialog.add(scrollPane, BorderLayout.CENTER);
+
+            // Display the dialog
+            dialog.setVisible(true);
+         } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to load the web page.", "Error", JOptionPane.ERROR_MESSAGE);
+         }
       }
    }
 
