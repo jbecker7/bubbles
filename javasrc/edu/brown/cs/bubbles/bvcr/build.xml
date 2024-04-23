@@ -20,12 +20,14 @@
 	 <pathelement location='${IVYBIN}' />
 	 <pathelement location='${BUBBLES}/lib/junit.jar' />
 	 <pathelement location='${BUBBLES}/lib/bubblesasm.jar' />
+      <fileset dir='${BUBBLES}/lib/' includes='json.jar' />
       </path>
       <path id='test.classpath'>
 	 <pathelement location='${BUBBLES}/java' />
 	 <pathelement location='${IVYBIN}' />
 	 <pathelement location='${BUBBLES}/lib/junit.jar' />
 	 <pathelement location='${BUBBLES}/lib/bubblesasm.jar' />
+   <fileset dir='${BUBBLES}/lib/' includes='json.jar' />
       </path>
    </target>
 

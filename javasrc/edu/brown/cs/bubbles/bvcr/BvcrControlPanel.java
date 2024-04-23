@@ -60,14 +60,24 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.GridLayout;
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import java.net.URL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 class BvcrControlPanel implements BvcrConstants, MintConstants {
 
@@ -788,28 +798,68 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
 
       private void showWebPageDialog() {
          try {
-            // Create a dialog
-            JDialog dialog = new JDialog((Frame) null, "Web Page", true);
-            dialog.setSize(800, 600);
+            String[] command = {
+                  "curl", "-L",
+                  "-H", "Accept: application/vnd.github+json",
+                  "-H", "Authorization: Bearer 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",
+
+                  "-H", "X-GitHub-Api-Version: 2022-11-28",
+                  "https://api.github.com/repos/StevenReiss/bubbles/issues"
+            };
+
+            // Execute the curl command
+            Process process = Runtime.getRuntime().exec(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            StringBuilder jsonResponse = new StringBuilder();
+
+            // Read the output from the command
+            while ((line = reader.readLine()) != null) {
+               jsonResponse.append(line);
+            }
+
+            // Parse the JSON response to extract the title using org.json library
+            String response = jsonResponse.toString();
+            JSONArray issues = new JSONArray(response);
+            String title = "No issues found";
+            String body = "No body";
+            if (issues.length() > 0) {
+               JSONObject issue = issues.getJSONObject(0);
+               title = issue.optString("title", "No title available");
+               body = issue.optString("body", "No body available");
+
+            }
+            JDialog dialog = new JDialog((Frame) null, "GitHub Issue Title", true);
+            dialog.setSize(600, 200);
             dialog.setLocationRelativeTo(null);
 
-            // Create a JEditorPane
-            JEditorPane webPane = new JEditorPane();
-            webPane.setPage(new URL("https://www.york.ac.uk/teaching/cws/wws/webpage1.html"));
-            webPane.setEditable(false);
-            webPane.setContentType("text/html");
+            // Create the labels
+            JLabel titleLabel = new JLabel();
+            JLabel bodyLabel = new JLabel();
+            titleLabel.setText("<html><body style='padding: 20px; width: " + (dialog.getSize().width / 2 - 40) + "px'>"
+                  + title + "</body></html>");
+            bodyLabel.setText("<html><body style='padding: 20px; width: " + (dialog.getSize().width / 2 - 40) + "px'>"
+                  + body + "</body></html>");
 
-            // Put it in a scroll pane
-            JScrollPane scrollPane = new JScrollPane(webPane);
-            dialog.add(scrollPane, BorderLayout.CENTER);
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            bodyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-            // Display the dialog
+            // Set up a panel with GridLayout
+            JPanel panel = new JPanel(new GridLayout(1, 2)); // 1 row, 2 columns
+            panel.add(titleLabel);
+            panel.add(bodyLabel);
+
+            // Add the panel to the dialog
+            dialog.getContentPane().add(panel);
             dialog.setVisible(true);
+
          } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Failed to load the web page.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to fetch GitHub issue title.", "Error",
+                  JOptionPane.ERROR_MESSAGE);
          }
       }
+
    }
 
 } // end of class BvcrControlPanel
