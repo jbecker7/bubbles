@@ -801,7 +801,7 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             String[] command = {
                   "curl", "-L",
                   "-H", "Accept: application/vnd.github+json",
-                  "-H", "Authorization: Bearer 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",
+                  "-H", "Authorization: Bearer PERSONAL_ACCESS_TOKEN",
 
                   "-H", "X-GitHub-Api-Version: 2022-11-28",
                   "https://api.github.com/repos/StevenReiss/bubbles/issues"
