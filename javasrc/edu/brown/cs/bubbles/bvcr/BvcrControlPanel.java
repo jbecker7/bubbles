@@ -806,18 +806,20 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
 
       private void showWebPageDialog() {
          JFrame frame = new JFrame("GitHub Issues");
-         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
          frame.setSize(800, 600);
          frame.setLocationRelativeTo(null);
 
          try {
-            // Make a HTTP GET request to fetch issues
             URL url = new URL("https://api.github.com/repos/luin/wechat-export/issues");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/vnd.github+json");
-            connection.setRequestProperty("Authorization", "Bearer " + System.getenv("GITHUB_TOKEN"));
+            connection.setRequestProperty("Authorization", "Bearer " + "token");
             connection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28");
+
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode); // Print the response code for debugging
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder jsonResponse = new StringBuilder();
@@ -827,7 +829,10 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             }
             reader.close();
 
-            // Parse the JSON response to extract issue titles
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+               throw new IOException("HTTP error code: " + responseCode);
+            }
+
             JSONArray issues = new JSONArray(jsonResponse.toString());
             List<String> titles = new ArrayList<>();
             for (int i = 0; i < issues.length(); i++) {
@@ -835,20 +840,20 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
                titles.add(issue.optString("title", "No title available"));
             }
 
-            // Convert List to array for JList
             JList<String> issuesList = new JList<>(titles.toArray(new String[0]));
             issuesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             JScrollPane scrollPane = new JScrollPane(issuesList);
             frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-
          } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Failed to fetch GitHub issues.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to fetch GitHub issues. Error: " + e.getMessage(), "Error",
+                  JOptionPane.ERROR_MESSAGE);
          }
 
          frame.setVisible(true);
       }
 
-   } // end of class BvcrControlPanel
+   }
+   // end of class BvcrControlPanel
 };
 /* end of BvcrControlPanel.java */
