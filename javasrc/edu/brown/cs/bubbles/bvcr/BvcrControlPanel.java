@@ -53,6 +53,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.SwingUtilities;
+import javax.swing.ListSelectionModel;
 
 import java.awt.Component;
 import java.awt.Frame;
@@ -70,11 +74,15 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.net.URL;
+import java.net.HttpURLConnection;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -797,71 +805,50 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
       }
 
       private void showWebPageDialog() {
+         JFrame frame = new JFrame("GitHub Issues");
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.setSize(800, 600);
+         frame.setLocationRelativeTo(null);
+
          try {
-            String[] command = {
-                  "curl", "-L",
-                  "-H", "Accept: application/vnd.github+json",
-                  "-H", "Authorization: Bearer PERSONAL_ACCESS_TOKEN",
+            // Make a HTTP GET request to fetch issues
+            URL url = new URL("https://api.github.com/repos/luin/wechat-export/issues");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/vnd.github+json");
+            connection.setRequestProperty("Authorization", "Bearer " + System.getenv("GITHUB_TOKEN"));
+            connection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28");
 
-                  "-H", "X-GitHub-Api-Version: 2022-11-28",
-                  "https://api.github.com/repos/StevenReiss/bubbles/issues"
-            };
-
-            // Execute the curl command
-            Process process = Runtime.getRuntime().exec(command);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder jsonResponse = new StringBuilder();
-
-            // Read the output from the command
+            String line;
             while ((line = reader.readLine()) != null) {
                jsonResponse.append(line);
             }
+            reader.close();
 
-            // Parse the JSON response to extract the title using org.json library
-            String response = jsonResponse.toString();
-            JSONArray issues = new JSONArray(response);
-            String title = "No issues found";
-            String body = "No body";
-            if (issues.length() > 0) {
-               JSONObject issue = issues.getJSONObject(0);
-               title = issue.optString("title", "No title available");
-               body = issue.optString("body", "No body available");
-
+            // Parse the JSON response to extract issue titles
+            JSONArray issues = new JSONArray(jsonResponse.toString());
+            List<String> titles = new ArrayList<>();
+            for (int i = 0; i < issues.length(); i++) {
+               JSONObject issue = issues.getJSONObject(i);
+               titles.add(issue.optString("title", "No title available"));
             }
-            JDialog dialog = new JDialog((Frame) null, "GitHub Issue Title", true);
-            dialog.setSize(600, 200);
-            dialog.setLocationRelativeTo(null);
 
-            // Create the labels
-            JLabel titleLabel = new JLabel();
-            JLabel bodyLabel = new JLabel();
-            titleLabel.setText("<html><body style='padding: 20px; width: " + (dialog.getSize().width / 2 - 40) + "px'>"
-                  + title + "</body></html>");
-            bodyLabel.setText("<html><body style='padding: 20px; width: " + (dialog.getSize().width / 2 - 40) + "px'>"
-                  + body + "</body></html>");
-
-            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            bodyLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-            // Set up a panel with GridLayout
-            JPanel panel = new JPanel(new GridLayout(1, 2)); // 1 row, 2 columns
-            panel.add(titleLabel);
-            panel.add(bodyLabel);
-
-            // Add the panel to the dialog
-            dialog.getContentPane().add(panel);
-            dialog.setVisible(true);
+            // Convert List to array for JList
+            JList<String> issuesList = new JList<>(titles.toArray(new String[0]));
+            issuesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            JScrollPane scrollPane = new JScrollPane(issuesList);
+            frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
          } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Failed to fetch GitHub issue title.", "Error",
-                  JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to fetch GitHub issues.", "Error", JOptionPane.ERROR_MESSAGE);
          }
+
+         frame.setVisible(true);
       }
 
-   }
-
-} // end of class BvcrControlPanel
-
+   } // end of class BvcrControlPanel
+};
 /* end of BvcrControlPanel.java */
