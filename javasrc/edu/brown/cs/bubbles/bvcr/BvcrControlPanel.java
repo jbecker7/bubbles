@@ -64,6 +64,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.BufferedReader;
@@ -815,11 +816,12 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/vnd.github+json");
-            connection.setRequestProperty("Authorization", "Bearer " + "token");
+            connection.setRequestProperty("Authorization",
+                  "Bearer " + "token");
             connection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28");
 
             int responseCode = connection.getResponseCode();
-            System.out.println("Response Code: " + responseCode); // Print the response code for debugging
+            System.out.println("Response Code: " + responseCode);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder jsonResponse = new StringBuilder();
@@ -834,16 +836,28 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             }
 
             JSONArray issues = new JSONArray(jsonResponse.toString());
+            List<JSONObject> issueObjects = new ArrayList<>();
             List<String> titles = new ArrayList<>();
             for (int i = 0; i < issues.length(); i++) {
                JSONObject issue = issues.getJSONObject(i);
-               titles.add(issue.optString("title", "No title available"));
+               issueObjects.add(issue);
+               titles.add(issue.optString("title", "No title available") + " - #" + issue.getInt("number"));
             }
 
             JList<String> issuesList = new JList<>(titles.toArray(new String[0]));
             issuesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             JScrollPane scrollPane = new JScrollPane(issuesList);
             frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+            issuesList.addMouseListener(new MouseAdapter() {
+               public void mouseClicked(MouseEvent evt) {
+                  if (evt.getClickCount() == 2) {
+                     int index = issuesList.locationToIndex(evt.getPoint());
+                     JSONObject selectedIssue = issueObjects.get(index);
+                     displayIssueDetails(selectedIssue);
+                  }
+               }
+            });
          } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Failed to fetch GitHub issues. Error: " + e.getMessage(), "Error",
@@ -853,7 +867,19 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
          frame.setVisible(true);
       }
 
+      private void displayIssueDetails(JSONObject issue) {
+         JFrame detailsFrame = new JFrame("Issue Details - #" + issue.getInt("number"));
+         detailsFrame.setSize(500, 400);
+         detailsFrame.setLocationRelativeTo(null);
+         JTextArea textArea = new JTextArea();
+         textArea.setText(issue.toString(4)); // Display JSON with indentation
+         textArea.setEditable(false);
+         JScrollPane scrollPane = new JScrollPane(textArea);
+         detailsFrame.getContentPane().add(scrollPane);
+         detailsFrame.setVisible(true);
+      }
    }
+
    // end of class BvcrControlPanel
 };
 /* end of BvcrControlPanel.java */
