@@ -869,15 +869,66 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
 
       private void displayIssueDetails(JSONObject issue) {
          JFrame detailsFrame = new JFrame("Issue Details - #" + issue.getInt("number"));
-         detailsFrame.setSize(500, 400);
+         detailsFrame.setSize(800, 600);
          detailsFrame.setLocationRelativeTo(null);
+
+         // Prepare the content panel
+         JPanel contentPanel = new JPanel(new BorderLayout());
          JTextArea textArea = new JTextArea();
-         textArea.setText(issue.toString(4)); // Display JSON with indentation
          textArea.setEditable(false);
          JScrollPane scrollPane = new JScrollPane(textArea);
-         detailsFrame.getContentPane().add(scrollPane);
+         contentPanel.add(scrollPane, BorderLayout.CENTER);
+
+         // Format the issue details
+         String issueDetails = "Title: " + issue.getString("title") + "\n\nBody:\n" + issue.getString("body")
+               + "\n\nComments:\n";
+         textArea.setText(issueDetails);
+
+         // Fetch and display comments
+         fetchAndDisplayComments(issue.getString("comments_url"), textArea);
+
+         detailsFrame.getContentPane().add(contentPanel);
          detailsFrame.setVisible(true);
       }
+
+      private void fetchAndDisplayComments(String commentsUrl, JTextArea textArea) {
+         try {
+            URL url = new URL(commentsUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/vnd.github.v3+json");
+            connection.setRequestProperty("Authorization", "Bearer " + "token");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+               throw new IOException("Failed to fetch comments, HTTP response code: " + responseCode);
+            }
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder jsonResponse = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+               jsonResponse.append(line);
+            }
+            reader.close();
+
+            JSONArray comments = new JSONArray(jsonResponse.toString());
+            StringBuilder commentsText = new StringBuilder();
+            for (int i = 0; i < comments.length(); i++) {
+               JSONObject comment = comments.getJSONObject(i);
+               commentsText.append(comment.getJSONObject("user").getString("login")).append(": ");
+               commentsText.append(comment.getString("body")).append("\n\n");
+            }
+
+            // Append comments to the existing text in JTextArea
+            SwingUtilities.invokeLater(() -> textArea.append(commentsText.toString()));
+
+         } catch (Exception e) {
+            e.printStackTrace();
+            SwingUtilities.invokeLater(() -> textArea.append("Failed to fetch comments: " + e.getMessage()));
+         }
+      }
+
    }
 
    // end of class BvcrControlPanel
