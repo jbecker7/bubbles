@@ -57,11 +57,14 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.SwingUtilities;
 import javax.swing.ListSelectionModel;
-
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -806,10 +809,17 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
       }
 
       private void showWebPageDialog() {
+
+         Color backgroundColor = new Color(240, 248, 255); // A nice soft blue color
+         Color buttonColor = new Color(225, 235, 245);
+         Font font = new Font("SansSerif", Font.PLAIN, 14);
+
          JFrame frame = new JFrame("GitHub Issues");
          frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
          frame.setSize(800, 600);
          frame.setLocationRelativeTo(null);
+         frame.getContentPane().setBackground(backgroundColor);
+         frame.setFont(font);
 
          try {
             URL url = new URL("https://api.github.com/repos/luin/wechat-export/issues");
@@ -846,7 +856,10 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
 
             JList<String> issuesList = new JList<>(titles.toArray(new String[0]));
             issuesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            issuesList.setBackground(backgroundColor);
+            issuesList.setFont(font);
             JScrollPane scrollPane = new JScrollPane(issuesList);
+            scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
             issuesList.addMouseListener(new MouseAdapter() {
@@ -868,15 +881,27 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
       }
 
       private void displayIssueDetails(JSONObject issue) {
+         Color backgroundColor = new Color(240, 248, 255); // A nice soft blue color
+         Color buttonColor = new Color(225, 235, 245);
+         Font font = new Font("SansSerif", Font.PLAIN, 14);
          JFrame detailsFrame = new JFrame("Issue Details - #" + issue.getInt("number"));
          detailsFrame.setSize(800, 600);
          detailsFrame.setLocationRelativeTo(null);
 
          // Prepare the content panel
          JPanel contentPanel = new JPanel(new BorderLayout());
+         contentPanel.setBackground(backgroundColor);
+         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
          JTextArea textArea = new JTextArea();
          textArea.setEditable(false);
+         textArea.setFont(font);
+         textArea.setBackground(backgroundColor);
+         textArea.setWrapStyleWord(true);
+         textArea.setLineWrap(true);
+
          JScrollPane scrollPane = new JScrollPane(textArea);
+         scrollPane.setBorder(BorderFactory.createLineBorder(backgroundColor, 10));
          contentPanel.add(scrollPane, BorderLayout.CENTER);
 
          // Format the issue details
@@ -892,6 +917,9 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
       }
 
       private void fetchAndDisplayComments(String commentsUrl, JTextArea textArea) {
+         Color backgroundColor = new Color(240, 248, 255); // A nice soft blue color
+         Color buttonColor = new Color(225, 235, 245);
+         Font font = new Font("SansSerif", Font.PLAIN, 14);
          try {
             URL url = new URL(commentsUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -926,6 +954,7 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
          } catch (Exception e) {
             e.printStackTrace();
             SwingUtilities.invokeLater(() -> textArea.append("Failed to fetch comments: " + e.getMessage()));
+
          }
       }
 
