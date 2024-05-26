@@ -43,6 +43,7 @@ import org.w3c.dom.Element;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -58,6 +59,7 @@ import javax.swing.JList;
 import javax.swing.SwingUtilities;
 import javax.swing.ListSelectionModel;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.UIManager;
 import java.awt.Component;
 import java.awt.Frame;
@@ -68,6 +70,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.BufferedReader;
@@ -826,8 +830,7 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Accept", "application/vnd.github+json");
-            connection.setRequestProperty("Authorization",
-                  "Bearer " + "token");
+            connection.setRequestProperty("Authorization", "Bearer " + "token");
             connection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28");
 
             int responseCode = connection.getResponseCode();
@@ -858,6 +861,37 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             issuesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             issuesList.setBackground(backgroundColor);
             issuesList.setFont(font);
+
+            // Highlight row on hover
+            issuesList.addMouseMotionListener(new MouseMotionAdapter() {
+               @Override
+               public void mouseMoved(MouseEvent e) {
+                  int index = issuesList.locationToIndex(e.getPoint());
+                  if (index > -1) {
+                     issuesList.setSelectedIndex(index);
+                  } else {
+                     issuesList.clearSelection();
+                  }
+               }
+            });
+
+            // Add tooltips
+            issuesList.setCellRenderer(new DefaultListCellRenderer() {
+               @Override
+               public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+                     boolean cellHasFocus) {
+                  Component component = super.getListCellRendererComponent(list, value, index, isSelected,
+                        cellHasFocus);
+                  if (component instanceof JComponent && issueObjects.size() > index) {
+                     JSONObject issue = issueObjects.get(index);
+                     String tooltip = "<html><b>Title:</b> " + issue.getString("title") + "<br/><b>Body:</b> "
+                           + issue.optString("body", "No body available") + "</html>";
+                     ((JComponent) component).setToolTipText(tooltip);
+                  }
+                  return component;
+               }
+            });
+
             JScrollPane scrollPane = new JScrollPane(issuesList);
             scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -882,9 +916,8 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
 
       private void displayIssueDetails(JSONObject issue) {
          Color backgroundColor = new Color(240, 248, 255); // A nice soft blue color
-         Color buttonColor = new Color(225, 235, 245);
          Font font = new Font("SansSerif", Font.PLAIN, 14);
-         JFrame detailsFrame = new JFrame("Issue Details - #" + issue.getInt("number"));
+         JDialog detailsFrame = new JDialog((Frame) null, "Issue Details - #" + issue.getInt("number"));
          detailsFrame.setSize(800, 600);
          detailsFrame.setLocationRelativeTo(null);
 
@@ -893,33 +926,31 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
          contentPanel.setBackground(backgroundColor);
          contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-         JTextArea textArea = new JTextArea();
-         textArea.setEditable(false);
-         textArea.setFont(font);
-         textArea.setBackground(backgroundColor);
-         textArea.setWrapStyleWord(true);
-         textArea.setLineWrap(true);
+         JEditorPane editorPane = new JEditorPane();
+         editorPane.setEditable(false);
+         editorPane.setContentType("text/html");
+         editorPane.setBackground(backgroundColor);
 
-         JScrollPane scrollPane = new JScrollPane(textArea);
+         JScrollPane scrollPane = new JScrollPane(editorPane);
          scrollPane.setBorder(BorderFactory.createLineBorder(backgroundColor, 10));
          contentPanel.add(scrollPane, BorderLayout.CENTER);
 
-         // Format the issue details
-         String issueDetails = "Title: " + issue.getString("title") + "\n\nBody:\n" + issue.getString("body")
-               + "\n\nComments:\n";
-         textArea.setText(issueDetails);
+         // Format the issue details using HTML
+         String issueDetails = "<html><body style='font-family: SansSerif; font-size: 14px;'>" +
+               "<h2>" + issue.getString("title") + "</h2>" +
+               "<p>" + issue.getString("body").replace("\n", "<br/>") + "</p>" +
+               "<h3>Comments:</h3>" +
+               "</body></html>";
+         editorPane.setText(issueDetails);
 
          // Fetch and display comments
-         fetchAndDisplayComments(issue.getString("comments_url"), textArea);
+         fetchAndDisplayComments(issue.getString("comments_url"), editorPane);
 
          detailsFrame.getContentPane().add(contentPanel);
          detailsFrame.setVisible(true);
       }
 
-      private void fetchAndDisplayComments(String commentsUrl, JTextArea textArea) {
-         Color backgroundColor = new Color(240, 248, 255); // A nice soft blue color
-         Color buttonColor = new Color(225, 235, 245);
-         Font font = new Font("SansSerif", Font.PLAIN, 14);
+      private void fetchAndDisplayComments(String commentsUrl, JEditorPane editorPane) {
          try {
             URL url = new URL(commentsUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -944,22 +975,26 @@ class BvcrControlPanel implements BvcrConstants, MintConstants {
             StringBuilder commentsText = new StringBuilder();
             for (int i = 0; i < comments.length(); i++) {
                JSONObject comment = comments.getJSONObject(i);
-               commentsText.append(comment.getJSONObject("user").getString("login")).append(": ");
-               commentsText.append(comment.getString("body")).append("\n\n");
+               commentsText.append("<b>").append(comment.getJSONObject("user").getString("login")).append(":</b> ");
+               commentsText.append(comment.getString("body").replace("\n", "<br/>")).append("<br/><br/>");
             }
 
-            // Append comments to the existing text in JTextArea
-            SwingUtilities.invokeLater(() -> textArea.append(commentsText.toString()));
+            // Append comments to the existing text in JEditorPane
+            SwingUtilities.invokeLater(() -> {
+               String existingText = editorPane.getText().replace("</body></html>", "");
+               editorPane.setText(existingText + commentsText.toString() + "</body></html>");
+            });
 
          } catch (Exception e) {
             e.printStackTrace();
-            SwingUtilities.invokeLater(() -> textArea.append("Failed to fetch comments: " + e.getMessage()));
-
+            SwingUtilities.invokeLater(() -> {
+               String existingText = editorPane.getText().replace("</body></html>", "");
+               editorPane
+                     .setText(existingText + "<p>Failed to fetch comments: " + e.getMessage() + "</p></body></html>");
+            });
          }
       }
-
    }
-
    // end of class BvcrControlPanel
 };
 /* end of BvcrControlPanel.java */
